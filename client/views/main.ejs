@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Quoting Dojo</title>
+    </head>
+
+    <style>
+        span{
+            color: red;
+        }
+        h1, form{
+            display: inline-block;
+        }
+        form{
+            margin-left: 200px;
+        }
+    </style>
+    
+    <body>
+        <h1>Here are the awesome quotes!</h1>
+        <form action="/back" method="get">
+            <input type="submit" value="Go Back">
+        </form>
+        <% for (var i in quotes) { %>
+            <%
+                var monthNames = [
+                    "Jan", "Feb", "Mar",
+                    "Apr", "May", "Jun", "Jul",
+                    "Aug", "Sep", "Oct",
+                    "Nov", "Dec"
+                ];
+                var dayNames = [
+                    "Mon", "Tues", "Wed",
+                    "Thur", "Fri", "Sat", 
+                    "Sun"
+                ];
+                var day = dayNames[quotes[i].createdAt.getDay()];
+                var d = quotes[i].createdAt.getDate();
+                var m = monthNames[quotes[i].createdAt.getMonth()];
+                var y = quotes[i].createdAt.getFullYear();
+                var h = quotes[i].createdAt.getHours();
+                var min = quotes[i].createdAt.getMinutes();
+                var sec = quotes[i].createdAt.getSeconds();
+
+                var ampm = "";
+                if(h > 11){
+                    ampm = "pm";
+                } else{
+                    ampm = "am";
+                }
+            %>
+            
+            <h3> <span> Name: </span> <%= quotes[i].name %> </h3>
+            <h3> <span> Quote: </span> <%= quotes[i].quote %> </h3>
+            <h3> <span> Time: </span> <%= day + " " + d + " " + m + " " + y + " " + h + ":" + min + ":" + sec + ampm %></h3>
+            <hr>
+        <% } %>        
+    </body>
+</html>
